@@ -47,6 +47,20 @@ public class BootstrapData implements CommandLineRunner {
         rod.getBooks().add(noEJB);
         noEJB.getAuthors().add(rod);
 
+        Publisher expedia = new Publisher();
+        expedia.setPublisherName("Expedia");
+        expedia.setAddress("Some address 12");
+        expedia.setCity("New York");
+        expedia.setZip("12-123");
+        expedia.setState("California");
+
+        expedia.getBooks().add(ddd);
+        expedia.getBooks().add(noEJB);
+        ddd.setPublisher(expedia);
+        noEJB.setPublisher(expedia);
+
+        Publisher savedPublisher = publisherRepository.save(expedia);
+
         Author ericSaved = authorRepository.save(eric);
         Book dddSaved = bookRepository.save(ddd);
 
@@ -55,16 +69,6 @@ public class BootstrapData implements CommandLineRunner {
 
         System.out.println("Authors: " + authorRepository.count());
         System.out.println("Books: " + bookRepository.count());
-
-        Publisher expedia = new Publisher();
-        expedia.setPublisherName("Expedia");
-        expedia.setAddress("Some address 12");
-        expedia.setCity("New York");
-        expedia.setZip("12-123");
-        expedia.setState("California");
-
-        publisherRepository.save(expedia);
-
         System.out.println("Publishers: " + publisherRepository.count());
     }
 }
